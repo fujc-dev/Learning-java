@@ -16,13 +16,7 @@ public class Programs {
      * @param args
      */
     public static void main(String[] args) {
-
+        System.out.println(ClassLoader.getSystemClassLoader());
     }
 
-    /**
-     * @param n
-     */
-    private void doCalc(int n) {
-
-    }
 }
