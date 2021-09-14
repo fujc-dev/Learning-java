@@ -7,6 +7,16 @@ package com.tuling.jvm;
  *
  * <p>*  全盘负责委托机制：指当前一个ClassLoader装载一个类时，除非显示的使用另外一个ClassLoader，否则该类型所依赖的类也由这个ClassLoader类载入。</p>
  *
+ *
+ * <p>*1、加载</p>
+ *
+ * <p>*2、验证</p>
+ *
+ * <p>*3、准备</p>
+ *
+ * <p>*4、解析</p>
+ *
+ * <p>*5、初始化</p>
  * @author : fjc.dane@gmail.com
  * @createtime : 2021/9/10 16:06
  */
