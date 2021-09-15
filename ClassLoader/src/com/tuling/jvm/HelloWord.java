@@ -10,6 +10,6 @@ public class HelloWord {
     public static void main(String[] args) {
         //Launcher
 
-        System.out.println("呵呵呵");
+        System.out.println("HelloWorld");
     }
 }
