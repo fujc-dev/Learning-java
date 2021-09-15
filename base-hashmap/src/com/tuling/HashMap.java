@@ -14,7 +14,7 @@ public class HashMap<K, V> {
         //获取数组的索引
         int _index = hashcode % containers.length;
         Node<K, V> next = (Node<K, V>) containers[_index];
-        Node<K, V> node = new Node<>(key, value, next);
+        Node<K, V> node = new Node<K,V>(key, value, next);
         System.out.println(_index);
 
 
@@ -33,4 +33,6 @@ public class HashMap<K, V> {
         maps.put("我爱北京天安门", "2");
         maps.put("你好", "2");
     }
+
+
 }

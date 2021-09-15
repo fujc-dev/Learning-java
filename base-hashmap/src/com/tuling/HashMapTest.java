@@ -12,6 +12,7 @@ import java.util.List;
 public class HashMapTest {
     public static void main(String[] args) {
         //数组，插入的时候，是按照顺序插入的，数组是特点：顺序插入，查询，修改效率高，非顺序插入，删除效率低。
+        //非顺序插入会移位
         List list = new ArrayList();
         list.add(0, "1");
         list.add("2");
