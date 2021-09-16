@@ -23,7 +23,8 @@ public class HashMapTest {
         maps.put("1", "1");   // key ---> key.hashcode()---->
         maps.put("2", "2");
 
-        //ConcurrentModificationException
+        //在多线程的时候，出错
+        //ConcurrentModificationException fast fail
         for (String key : maps.keySet()) {
             if ("2".equals(key)) {
                 maps.remove(key);
