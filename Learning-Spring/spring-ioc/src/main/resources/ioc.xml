@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- 注册bean -->
+	<bean class="com.zc58s.springioc.core.FXNewsProvider"
+		id="djNewProvider" >
+		<constructor-arg index="0">
+			<ref bean="djNewListener" />
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="djNewPersister" />
+		</constructor-arg>
+	</bean>
+	<bean id="djNewListener"
+		class="com.zc58s.springioc.core.service.listener.impl.DowJonesNewsListener" />
+	<bean id="djNewPersister"
+		class="com.zc58s.springioc.core.service.persister.impl.DowJonesNewsPersister" />
+
+	<bean id="cat" class="com.zc58s.springioc.debug.Cat"></bean>
+</beans>
