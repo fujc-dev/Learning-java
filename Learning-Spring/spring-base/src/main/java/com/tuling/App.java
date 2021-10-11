@@ -3,10 +3,12 @@ package com.tuling;
 import com.tuling.config.AppConfig;
 import com.tuling.events.MessageEvent;
 import com.tuling.service.UserService;
+import org.springframework.aop.framework.ProxyFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.annotation.AnnotatedBeanDefinitionReader;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -21,10 +23,24 @@ import java.util.Map;
 public class App {
     public static void main(String[] args) {
 
-        //
+        // new AnnotationConfigApplicationContext时做了那些事情？
+        /**
+         * 提前：
+         * 1、new AnnotationConfigApplicationContext就是创建容器，然后将Bean、BeanDefinition构建到容器中；
+         * 2、我们构建Bean有3中方式，代码构建注解的方式、Xml配置，而AnnotationConfigApplicationContext就是编码的方式创建容器，构建Bean；
+         * 总结：
+         *      AnnotationConfigApplicationContext构造函数里面初始化了一个reader、scanner；
+         *      reader就是以编程的方式；
+         *      scanner就是已扫描.class文件，准确一点就是扫描Component、Server、Bean、Repository、Condition等Spring声明的注解。
+         *
+         *
+         */
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
         context.publishEvent(new MessageEvent("234234"));
+
+        ProxyFactory proxyFactory  = new ProxyFactory();
+        //proxyFactory.setTarget();
 
 
         //1、假如UserService没有添加@Component注解，可以通过硬编码的方式注入
