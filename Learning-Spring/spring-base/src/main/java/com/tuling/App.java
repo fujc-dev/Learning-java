@@ -23,6 +23,7 @@ import java.util.Map;
 public class App {
     public static void main(String[] args) {
 
+        Execute execute = new Execute();
         // new AnnotationConfigApplicationContext时做了那些事情？
         /**
          * 提前：
@@ -37,9 +38,13 @@ public class App {
          */
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
+        UserService userService = (UserService) context.getBean("userService");
+
+        userService.test();
+
         context.publishEvent(new MessageEvent("234234"));
 
-        ProxyFactory proxyFactory  = new ProxyFactory();
+        ProxyFactory proxyFactory = new ProxyFactory();
         //proxyFactory.setTarget();
 
 
@@ -67,7 +72,7 @@ public class App {
         */
 
 
-       //操作系统环境变量
+        //操作系统环境变量
         /*
         Map<String, Object> systemEnvironment = context.getEnvironment().getSystemEnvironment();
         System.out.println(systemEnvironment);
