@@ -37,7 +37,10 @@ public class App {
          *
          *
          */
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+        //new AnnotationConfigApplicationContext(AppConfig.class); 做了那些事情？
+        // 1、扫描，构建BeanDefinition
+        // 2、实例化非懒加载的单例Bean
+        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
         UserService userService = (UserService) context.getBean("userService");
 
