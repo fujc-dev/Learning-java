@@ -4,6 +4,7 @@ import com.tuling.config.AppConfig;
 import com.tuling.events.MessageEvent;
 import com.tuling.service.UserService;
 import org.springframework.aop.framework.ProxyFactory;
+import org.springframework.beans.factory.SmartInitializingSingleton;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.AbstractBeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -42,7 +43,7 @@ public class App {
         // 2、实例化非懒加载的单例Bean
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        UserService userService = (UserService) context.getBean("userService");
+        UserService userService = (UserService) context.getBean("&userService");
 
         userService.test();
 
@@ -51,6 +52,8 @@ public class App {
         ProxyFactory proxyFactory = new ProxyFactory();
         //proxyFactory.setTarget();
 
+        //SmartInitializingSingleton
+        //容器里面所有的非懒加载的单例Bean都创建完毕之后，然后才会一个一个执行SmartInitializingSingleton的afterSingletonsInstantiated方法。
 
         //1、假如UserService没有添加@Component注解，可以通过硬编码的方式注入
         //构建BeanDefinition来实现注入
