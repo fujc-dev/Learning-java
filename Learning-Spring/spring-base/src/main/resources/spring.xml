@@ -3,5 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="com.tuling.service.UserService" name="userService"/>
+
+    <!-- 这个bean是一个抽象的bean，不会初始化为bean对象，但是会创建BeanDefinition -->
+    <bean id="student" class="com.tuling.bean.Student" scope="prototype" abstract="true"></bean>
+    <!-- 这个bean会继承，student bean的特性，也就是 scope="prototype"-->
+    <bean id="userService" class="com.tuling.service.UserService" name="userService1" parent="userService" />
 </beans>

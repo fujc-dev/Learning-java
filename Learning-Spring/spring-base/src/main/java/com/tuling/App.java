@@ -49,7 +49,7 @@ public class App {
 
         context.publishEvent(new MessageEvent("234234"));
 
-        ProxyFactory proxyFactory = new ProxyFactory();
+        //ProxyFactory proxyFactory = new ProxyFactory();
         //proxyFactory.setTarget();
 
         //SmartInitializingSingleton
