@@ -17,16 +17,22 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
                 return;
             c = ctl.get();
         }
-        //c 
-        //offer 方法与add方法差不多一致
+        // 向队列里面放，而列队长度为10，队列容量为10
+        //offer 方法与add方法差不多一致，放不成功，返回false
+        //isRunning(c) 
         if (isRunning(c) && workQueue.offer(command)) {
             int recheck = ctl.get();
             if (! isRunning(recheck) && remove(command))
+                //拒绝策略
                 reject(command);
             else if (workerCountOf(recheck) == 0)
+                //为什么会传一个空任务？
+                //
                 addWorker(null, false);
         }
+        //临时工处理的地方，案例中的临时工的Size为10
         else if (!addWorker(command, false))
+            //拒绝策略
             reject(command);
     }
 }
