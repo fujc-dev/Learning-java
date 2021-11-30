@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @createtime : 2021/11/30 9:58
  */
 
-public class ThreadPollDemo {
+public class ThreadPoolDemo {
     public static void main(String[] args) {
         // 线程复用，全是临时工，没有正式工，来多少个任务都吃得下
         ExecutorService executorService1 = Executors.newCachedThreadPool();                         //快
