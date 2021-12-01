@@ -37,3 +37,30 @@ WAITING：等待，wait，join
 TIMED_WAITING：超时等待，参数里面弄一个超时的值
 TERMINATED：终止
 ```
+
+#### 创建线程的方式
+````java
+//最普通的创建线程的方式
+public class Thread {
+
+}
+
+//任务和线程隔离，我们处理的逻辑与线程的创建分开
+//缺点：无返回值，无法进行异常捕获，
+public interface Runnable {
+    
+    //问题：
+    //1、没有返回值
+    //2、没有抛出异常，
+    public abstract void run();
+}
+
+//在Runnable的基础上升级的版本
+//使用Callable就没有那么简单了
+//也可以通过创建FutureTask创建任务的方式
+//也可以结合我们的线程池来使用
+public interface Callable<V> {
+    //
+    V call() throws Exception;
+}
+````
