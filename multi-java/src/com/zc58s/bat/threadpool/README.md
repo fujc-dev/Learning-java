@@ -1,14 +1,17 @@
+#### 线程池
 
-
-#### 
 ```java
 public class ThreadPoolExecutor extends AbstractExecutorService {
-    
-    
+
+
+    /**
+     *  执行 ，执行优先级，
+     * @param command
+     */
     public void execute(Runnable command) {
         if (command == null)
             throw new NullPointerException();
-        
+
         //ctl CAS
         int c = ctl.get();
         //workerCountOf 正式工是否有空余人员
@@ -22,7 +25,7 @@ public class ThreadPoolExecutor extends AbstractExecutorService {
         //isRunning(c) 
         if (isRunning(c) && workQueue.offer(command)) {
             int recheck = ctl.get();
-            if (! isRunning(recheck) && remove(command))
+            if (!isRunning(recheck) && remove(command))
                 //拒绝策略
                 reject(command);
             else if (workerCountOf(recheck) == 0)
