@@ -26,7 +26,7 @@ public class Main {
     // >> 右移
 
 
-    public static void main(String[] args) {
+    public  static void main(String[] args) {
         // 1的二进制为00000001 ===> 左移一位二进制就变成 00000010 ===> 十进制就是2
         System.out.println(1 << 1);
         // 1的二进制为00000001 ===> 右移一位二进制就变成 00000000 ===> 十进制就是0
