@@ -63,4 +63,18 @@ public interface Callable<V> {
     //
     V call() throws Exception;
 }
+
+//    new Thread(() -> System.out.println(Thread.currentThread().getName())).start();
+
 ````
+
+#### 线程创建和启动的流程总结
+```text
+  1）使用new Thread()创建一个线程，然后调用start()方法进行java层面的线程启动；
+  2）调用本地方法start0()，去调用jvm中的JVM_StartThread方法进行线程创建和启动；
+  3）调用new JavaThread(&amp;thread_entry, sz)进行线程的创建，并根据不同的操作系统平台调用对应的os::create_thread方法进行线程创建；
+  4）新创建的线程状态为Initialized，调用了sync-&gt;wait()的方法进行等待，等到被唤醒才继续执行thread-&gt;run();
+  5）调用Thread::start(native_thread);方法进行线程启动，此时将线程状态设置为RUNNABLE，接着调用os::start_thread(thread)，根据不同的操作系统选择不同的线程启动方式；
+  6）线程启动之后状态设置为RUNNABLE, 并唤醒第4步中等待的线程，接着执行thread-&gt;run()的方法；
+  7）JavaThread::run()方法会回调第1步new Thread中复写的run()方法。
+```

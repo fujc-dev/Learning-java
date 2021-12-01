@@ -17,7 +17,17 @@ public class ThreadExecuteTest {
                 System.out.println("通过Runnable方式执行任务");
             }
         };
+        //底层操作系统会创建线程，这个start调用一个native方法
+        //java Thread --> jvm JavaThread --> os Thread -->
+        //-->  native_thread java thread 建立关系
+        //-->
         new Thread(runnable).start();
+        //分析：
+        //没有调用start，仅仅是一个类方法的调用
+        new Thread(runnable).run();
+        //同上
+        runnable.run();
+
         FutureTask task = new FutureTask(new Callable() {
             @Override
             public Object call() throws Exception {
@@ -28,5 +38,8 @@ public class ThreadExecuteTest {
         });
         new Thread(task).start();
         System.out.println(task.get());
+
+        //
+        new Thread(() -> System.out.println(Thread.currentThread().getName())).start();
     }
 }
