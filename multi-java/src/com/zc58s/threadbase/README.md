@@ -39,6 +39,7 @@ TERMINATED：终止
 ```
 
 #### 创建线程的方式
+
 ````java
 //最普通的创建线程的方式
 public class Thread {
@@ -48,7 +49,7 @@ public class Thread {
 //任务和线程隔离，我们处理的逻辑与线程的创建分开
 //缺点：无返回值，无法进行异常捕获，
 public interface Runnable {
-    
+
     //问题：
     //1、没有返回值
     //2、没有抛出异常，
@@ -69,6 +70,7 @@ public interface Callable<V> {
 ````
 
 #### 线程创建和启动的流程总结
+
 ```text
   1）使用new Thread()创建一个线程，然后调用start()方法进行java层面的线程启动；
   2）调用本地方法start0()，去调用jvm中的JVM_StartThread方法进行线程创建和启动；
@@ -77,4 +79,17 @@ public interface Callable<V> {
   5）调用Thread::start(native_thread);方法进行线程启动，此时将线程状态设置为RUNNABLE，接着调用os::start_thread(thread)，根据不同的操作系统选择不同的线程启动方式；
   6）线程启动之后状态设置为RUNNABLE, 并唤醒第4步中等待的线程，接着执行thread-&gt;run()的方法；
   7）JavaThread::run()方法会回调第1步new Thread中复写的run()方法。
+```
+
+#### 线程中断
+
+```text
+中断标志位
+注：有些操作会清除标志位
+```
+
+#### Java线程间通信
+
+```text
+ 等待通知机制，等待唤醒机制
 ```
