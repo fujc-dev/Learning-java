@@ -11,6 +11,7 @@ public class SyncQModeDemo {
 
         SyncQModeDemo demo = new SyncQModeDemo();
 
+        //线程依次执行，保证测试的时间线
         demo.startThreadA();
         //控制线程执行时间
         Thread.sleep(100);
