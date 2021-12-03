@@ -1,5 +1,5 @@
 
-
+![64位JVM下的对象结构描述](imgs/img.png)
 ```java
 class Demo{
         public static void main(String[] args) throws InterruptedException {
@@ -8,6 +8,11 @@ class Demo{
             System.out.println(ClassLayout.parseInstance(obj).toPrintable());
 
             new Thread(() -> {
+                //思考：Demo.class会是什么状态？
+                synchronized (Demo.class) {                   
+                    System.out.println(Thread.currentThread().getName() + " \n " + ClassLayout.parseInstance(Demo.class).toPrintable());
+                    //
+                }
                 synchronized (obj) {
                     System.out.println(Thread.currentThread().getName() + " \n " + ClassLayout.parseInstance(obj).toPrintable());
                 }
@@ -36,8 +41,9 @@ class Demo{
              Instance size: 16 bytes
              Space losses: 0 bytes internal + 4 bytes external = 4 bytes total
              */
-            
+
             
         }
 }
+
 ```
