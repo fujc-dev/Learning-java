@@ -3,50 +3,26 @@ package com.zc58s.multidemo.sync;
 import org.openjdk.jol.info.ClassLayout;
 
 /**
- *
- *
  * 关闭指针压缩（-XX:-UseCompressedOops）
  */
 public class ObjectTest {
 
     public static void main(String[] args) throws InterruptedException {
-        //jvm延迟偏向
-        Thread.sleep(5000);
-        Object obj = new Test();
-        //Object obj = new Integer[4];
-        //obj.hashCode();
+        //jvm 延迟偏向，直接开启匿名偏向状态，我们可以看到内存布局全部都变成偏向锁
+        //但是，我们的第一个obj是属于主线程的，为什么会是偏向锁呢？
+        //那么，这里涉及到一个概念，当我们开启偏向锁模式的时候，默认对象全部都开启偏向锁模式，
+        // 这些新建的对象，还没有指定我们偏向的线程，也就是说，真正有线程竞争的时候
+        //例如：Object obj = new Object();  00000101 00000000 00000000 00000000 ，此时全是为0
+        Thread.sleep(5000);  //
+        Object obj = new Object();
         //查看对象内部信息
         System.out.println(ClassLayout.parseInstance(obj).toPrintable());
 
-        new Thread(()->{
-            synchronized (obj){
-                System.out.println(Thread.currentThread().getName()+"\n"+ClassLayout.parseInstance(obj).toPrintable());
+        new Thread(() -> {
+            synchronized (obj) {
+                System.out.println(Thread.currentThread().getName() + " \n " + ClassLayout.parseInstance(obj).toPrintable());
             }
-            System.out.println(Thread.currentThread().getName()+"释放锁\n"+ClassLayout.parseInstance(obj).toPrintable());
-
-            // jvm 优化
-            try {
-                Thread.sleep(100000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-        },"Thread1").start();
-
-
-        Thread.sleep(2000);
-
-
-        new Thread(()->{
-            synchronized (obj){
-                System.out.println(Thread.currentThread().getName()+"\n"+ClassLayout.parseInstance(obj).toPrintable());
-            }
-        },"Thread2").start();
-
+        }, "Thread1").start();
     }
 }
 
-class Test{
-    private boolean flag;
-    private long  p;
-}
